@@ -1,0 +1,13 @@
+1. application에서 logd 사용방법
+   1.1 Makefile 수정
+       logd 라이브러리 추가 : -llogd
+   1.2 souce level
+	#include <logd_rpc.h>
+	logd_init(); //1회 호출
+
+2. application별로 logd 출력하는 방법
+   logd로 모든 application이 출력될 수 있기 때문에
+   application별로 출력될 수 있도록 기능 추가함.
+
+   예를 들어서 emer2 application msg만 출력하려면
+   ./logd -app emer2
