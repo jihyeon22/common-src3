@@ -9,6 +9,8 @@
 
 #include <mdsapi/mds_udp_ipc.h>
 
+#include "board_system.h"
+
 #define MAX_MSG_LOOP_CNT                20
 #define MSG_LOOP_DEFAULT_TIMEOUT_SEC    10
 

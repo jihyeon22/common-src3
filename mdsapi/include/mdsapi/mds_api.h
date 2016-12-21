@@ -15,8 +15,6 @@ unsigned short mds_api_crc16_get( unsigned char *buf, unsigned int len);
 // --------------------------------------
 // power 
 // --------------------------------------
-#define LOG_PWR_PATH "/data/mds/log/power.log"
-#define LOG_PWR_LOG_MAX_SIZE    10240
 mdsapiRet_t mds_api_poweroff();   // never return..
 mdsapiRet_t mds_api_poweroff_and_log(char* process_name, char* msg); // // never return..
 
@@ -88,7 +86,6 @@ int mds_api_system_fork(const char *command, int deamon, char *argv[]);
 // --------------------------------------
 // statck dump 
 // --------------------------------------
-#define MDS_API_CALLSTACK_LOG_PATH "/data/mds/log/abort.log"
 void mds_api_stackdump_init(void);
 
 // --------------------------------------

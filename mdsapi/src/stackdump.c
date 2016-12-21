@@ -10,6 +10,8 @@
 
 #include <mdsapi/mds_api.h>
 
+#include "board_system.h"
+
 
 #define SIZE_STACKDUMP 100*1024
 

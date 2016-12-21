@@ -6,6 +6,8 @@
 
 #include <mdsapi/mds_api.h>
 
+#include "board_system.h"
+
 #define DEFINES_IP_LEN	15
 #define DEFINES_IP_BUFF_LEN	(DEFINES_IP_LEN + 1)
 

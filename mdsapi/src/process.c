@@ -17,6 +17,8 @@
 
 #include <mdsapi/mds_api.h>
 
+#include "board_system.h"
+
 #define TRUE    1
 #define FALSE   0
 

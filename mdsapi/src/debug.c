@@ -2,6 +2,8 @@
 
 #include <mdsapi/mds_api.h>
 
+#include "board_system.h"
+
 void mds_api_debug_hexdump_buff(unsigned char *buff, const int buff_len)
 {
 	int i;

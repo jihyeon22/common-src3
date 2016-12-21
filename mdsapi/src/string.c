@@ -13,6 +13,8 @@
 #include <mdsapi/mds_api.h>
 
 
+#include "board_system.h"
+
 char * mds_api_strnstr(const char *str, const char *find, int str_len)
 {
 	char c, sc;

@@ -5,6 +5,8 @@
 #include <termios.h>
 #include <fcntl.h>
 
+#include "board_system.h"
+
 int mds_api_init_uart(const char* dev, const int baud)
 {
 	struct termios newtio;

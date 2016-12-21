@@ -12,6 +12,8 @@
 #include <mdsapi/mds_shm.h>
 #include <mdsapi/mds_udp_ipc.h>
 
+#include "board_system.h"
+
 const char empty_app_name[] = "null";
 static SHM_GLOBAL_DATA_T* _app_shm_global_init()
 {

@@ -9,6 +9,8 @@
 
 #include <mdsapi/mds_udp_ipc.h>
 
+#include "board_system.h"
+
 #define REUSE_CLNT_SOCK
 
 static int g_sock[MAX_REUSE_SOCK_CNT] = {0,};

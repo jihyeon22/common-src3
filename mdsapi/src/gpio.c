@@ -12,6 +12,8 @@
 
 #include <mdsapi/mds_api.h>
 
+#include "board_system.h"
+
 int mds_api_gpio_get_value(const int gpio)
 {
 	int fd = 0, value = 0;

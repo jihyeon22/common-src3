@@ -14,6 +14,9 @@
 
 #include <mdsapi/mds_api.h>
 
+#include "board_system.h"
+
+#include "board_system.h"
 
 
 static void devel_log_poweroff(const char *log)

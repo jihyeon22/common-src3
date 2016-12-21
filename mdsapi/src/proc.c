@@ -12,6 +12,8 @@
 
 #include <mdsapi/mds_api.h>
 
+#include "board_system.h"
+
 
 //return -1 : error
 //       other : available memory In KB

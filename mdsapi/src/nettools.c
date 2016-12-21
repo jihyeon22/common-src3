@@ -18,6 +18,8 @@
 
 #include <mdsapi/mds_api.h>
 
+#include "board_system.h"
+
 
 mdsapiRet_t mds_api_get_netstate(const char* netdev)
 {

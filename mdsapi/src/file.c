@@ -12,6 +12,8 @@
 
 #include <mdsapi/mds_api.h>
 
+#include "board_system.h"
+
 //--------------------
 
 

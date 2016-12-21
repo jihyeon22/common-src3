@@ -13,6 +13,8 @@
 #include <mdsapi/mds_api.h>
 
 
+#include "board_system.h"
+
 #define RETRY_GET_KERNELTIME 5
 time_t mds_api_get_kerneltime()
 {
