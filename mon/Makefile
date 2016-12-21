@@ -1,7 +1,7 @@
 #CC	= $(CROSS_COMPILE)gcc
 #AR	= $(CROSS_COMPILE)ar
 
-CFLAGS	+= -DINI_PATH=\"/data/mds/system/bin/mon.ini\"
+CFLAGS	+= -DINI_PATH=\"/system/mds/system/bin/mon.ini\"
 OBJS	= launcher.o mon.o
 NAME	= mon
 OUTDIR 	= ./

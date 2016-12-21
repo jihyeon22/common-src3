@@ -1,13 +1,13 @@
-1. application¿¡¼­ logd »ç¿ë¹æ¹ý
-   1.1 Makefile ¼öÁ¤
-       logd ¶óÀÌºê·¯¸® Ãß°¡ : -llogd
+1. applicationï¿½ï¿½ï¿½ï¿½ logd ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+   1.1 Makefile ï¿½ï¿½ï¿½ï¿½
+       logd ï¿½ï¿½ï¿½Ìºê·¯ï¿½ï¿½ ï¿½ß°ï¿½ : -llogd
    1.2 souce level
 	#include <logd_rpc.h>
-	logd_init(); //1È¸ È£Ãâ
+	logd_init(); //1È¸ È£ï¿½ï¿½
 
-2. applicationº°·Î logd Ãâ·ÂÇÏ´Â ¹æ¹ý
-   logd·Î ¸ðµç applicationÀÌ Ãâ·ÂµÉ ¼ö ÀÖ±â ¶§¹®¿¡
-   applicationº°·Î Ãâ·ÂµÉ ¼ö ÀÖµµ·Ï ±â´É Ãß°¡ÇÔ.
+2. applicationï¿½ï¿½ï¿½ï¿½ logd ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
+   logdï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ applicationï¿½ï¿½ ï¿½ï¿½ï¿½Âµï¿½ ï¿½ï¿½ ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+   applicationï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Âµï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½.
 
-   ¿¹¸¦ µé¾î¼­ emer2 application msg¸¸ Ãâ·ÂÇÏ·Á¸é
-   ./logd -app emer2
+   ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¼­ emer3 application msgï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½
+   ./logd -app emer3
