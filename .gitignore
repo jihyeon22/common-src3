@@ -1,0 +1,8 @@
+*.o
+*.a
+logd/logd
+mdsapi/api_sample
+mdsapi/shm_test
+mdsapi/test_udp_ipc_clnt
+mdsapi/test_udp_ipc_svr
+mon/mon
