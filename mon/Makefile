@@ -8,6 +8,10 @@ OUTDIR 	= ./
 TARGET	= $(OUTDIR)$(NAME)
 LIBS	= -liniparser -lmdsapi
 
+PREFIX		:= /system
+SBINDIR		:= $(PREFIX)/sbin
+BINDIR		:= $(PREFIX)/$(VER)
+
 ###############################################################################
 # Board Setting
 
@@ -29,8 +33,9 @@ clean:
 	rm -rf $(TARGET) $(OBJS) 
 	
 install:
-	$(Q)$(call check_install_dir, $(DESTDIR)$(WORK_PATH)/$(VER))
-	cp -v $(TARGET) $(DESTDIR)$(WORK_PATH)/$(VER)/$(NAME)
+	$(Q)$(call check_install_dir, $(DESTDIR)$(BINDIR))
+	$(Q)fakeroot cp -v $(TARGET) $(DESTDIR)$(BINDIR)/$(TARGET)
+
 
 #install:
 #	$(Q)$(call check_install_dir, $(DESTDIR)$(WORK_PATH))
