@@ -74,7 +74,15 @@ enum gpioDirection
 };
 int mds_api_gpio_set_value(const int gpio, const int value);
 int mds_api_gpio_get_value(const int gpio);
-int gpio_set_direction(const int gpio, gpioDirection_t direction);
+int mds_api_gpio_set_direction(const int gpio, gpioDirection_t direction);
+
+// --------------------------------------
+// led
+// --------------------------------------
+int mds_api_led_on(const char* led_name, const char* color_name);
+int mds_api_led_off(const char* led_name);
+int mds_api_led_blink(const char* led_name, const char* color_name, const int delay_on, const int delay_off);
+
 
 // --------------------------------------
 // process 
@@ -120,5 +128,16 @@ mdsapiRet_t validation_check_lat_lon(float lat, float lon);
 mdsapiRet_t mds_api_get_ip(const char* netif_buff, const int netif_buff_len, char *ip_buff, const int ip_buff_len);
 mdsapiRet_t mds_api_get_domain_to_ip(const char *dn_buff, const int dn_buff_len, char *ip_buff, const int ip_buff_len);
 mdsapiRet_t mds_api_get_netstate(const char* netdev);
+
+//---------------------------------------
+// gpsd tool
+// --------------------------------------
+#define MDS_API_GPS_TOOLS__TYPE_COLD    0
+#define MDS_API_GPS_TOOLS__TYPE_WARM    1
+
+int gpsd_start(int type);
+int gpsd_stop();
+int gpsd_reset(int type);
+int gpsd_get_nmea(char* buff, int buff_len);
 
 #endif // __H_MDS_API__

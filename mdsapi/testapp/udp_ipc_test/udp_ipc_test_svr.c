@@ -33,7 +33,8 @@ int main(void)
     //unsigned char result_buff[128] ={0,};
     
     // test case 1 : use thread
-    udp_ipc_server_start(UDP_IPC_PORT__CHK_APP_MEM, msg_recv_proc_test);
+	printf("test start.. \r\n"); 
+    udp_ipc_server_start(UDP_IPC_PORT__GPS_NMEA_DATA_CH, msg_recv_proc_test);
     
     // test case 2 : no use thread
     /*

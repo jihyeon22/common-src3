@@ -9,8 +9,9 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-
 #include <mdsapi/mds_api.h>
+
+#include "board_system.h"
 
 #include "board_system.h"
 
@@ -27,7 +28,7 @@ int mds_api_gpio_get_value(const int gpio)
 		goto err;
 	}
     */
-	sprintf(buf, "/sys/class/gpio/gpio%d/value", gpio);
+	sprintf(buf, GPIO_VALUE, gpio);
 
 	/* open gpio sysfs */
 	fd = open(buf, O_RDWR);
@@ -62,7 +63,7 @@ int mds_api_gpio_set_value(const int gpio, const int value)
 		return -1;
 	}*/
 
-	sprintf(buf, "/sys/class/gpio/gpio%d/value", gpio);
+	sprintf(buf, GPIO_VALUE, gpio);
 
 	fd = open(buf, O_RDWR);
 	if(fd < 0) {
@@ -81,7 +82,7 @@ int mds_api_gpio_set_value(const int gpio, const int value)
 	return 0;
 }
 
-int gpio_set_direction(const int gpio, gpioDirection_t direction)
+int mds_api_gpio_set_direction(const int gpio, gpioDirection_t direction)
 {
 	int fd = 0;
 	char buf[32] = {0};
@@ -93,7 +94,7 @@ int gpio_set_direction(const int gpio, gpioDirection_t direction)
 		return -1;
 	}*/
 
-	sprintf(buf, "/sys/class/gpio/gpio%d/direction", gpio);
+	sprintf(buf, GPIO_DIRECTION, gpio);
 
 	fd = open(buf, O_RDWR);
 	if(fd < 0) {

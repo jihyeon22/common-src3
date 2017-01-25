@@ -31,7 +31,9 @@ LIB_SRCS  = src/crc.c src/debug.c src/file.c src/gpio.c src/nettools.c src/power
 LIB_SRCS  += src/proc.c src/process.c src/stackdump.c src/string.c src/time.c
 LIB_SRCS  += src/uart.c src/validation.c 
 LIB_SRCS  += src/udp_ipc_server.c src/udp_ipc_clnt.c 
+LIB_SRCS  += src/gpsd_util.c
 LIB_SRCS  += src/mds_shm.c 
+LIB_SRCS  += src/led.c 
 
 LIB_OBJS = $(LIB_SRCS:.c=.o)
 
@@ -51,14 +53,16 @@ TEST_LIBS += -lpthread -lmdsapi
 #####################################
 TEST_IPC_SRCS_1 = testapp/udp_ipc_test/udp_ipc_test_svr.c
 TEST_IPC_SRCS_2 = testapp/udp_ipc_test/udp_ipc_test_clnt.c
+TEST_IPC_SRCS_3 = testapp/udp_ipc_test/udp_ipc_test_clnt_gps.c
 
 TEST_IPC_OBJS_1 = $(TEST_IPC_SRCS_1:.c=.o)
 TEST_IPC_OBJS_2 = $(TEST_IPC_SRCS_2:.c=.o)
+TEST_IPC_OBJS_3 = $(TEST_IPC_SRCS_3:.c=.o)
 
 TEST_IPC_LIBS += -lpthread -lmdsapi
 
 #all: all-before libs $(BIN) samples all-after
-all: $(TARGET) install api_sample shm_test test_udp_ipc_svr test_udp_ipc_clnt
+all: $(TARGET) install api_sample shm_test test_udp_ipc_svr test_udp_ipc_clnt udp_ipc_test_clnt_gps
 
 .c.o:
 	$(CC) $(CFLAGS) $(LIB_LIBS) $(LIB_INCS) -c $< -o $@
@@ -79,6 +83,9 @@ test_udp_ipc_svr : $(TEST_IPC_OBJS_1)
 test_udp_ipc_clnt : $(TEST_IPC_OBJS_2)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(TEST_IPC_LIBS) 
     
+udp_ipc_test_clnt_gps : $(TEST_IPC_OBJS_3)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(TEST_IPC_LIBS) 
+	
 $(TARGET): $(LIB_OBJS)
 	$(AR) rsc $@ $^
 	$(RANLIB) $@

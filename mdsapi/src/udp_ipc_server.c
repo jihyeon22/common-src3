@@ -132,7 +132,7 @@ static void _svr_msg_loop(void* arg)
         
         if ( (read_size = recvfrom( svr_sock, buff_rcv, IPC_BUFF_SIZE, 0 , ( struct sockaddr*)&client_addr, &client_addr_size)) <= 0 )
         {
-            //printf( "[server %d] receive timeout\n", getpid());
+            // printf( "[server %d] receive timeout\n", getpid());
             loop_arg.msg_recv_proc(NULL, 0, NULL, NULL);
         }
         else
@@ -141,7 +141,7 @@ static void _svr_msg_loop(void* arg)
             memset(buff_resp, 0x00, IPC_BUFF_SIZE);
 
             inet_ntop(AF_INET, &(client_addr.sin_addr), ip_buffer, 256);
-            // printf( "[server:%d/%d/%d] recv data --> [%s] / [%d]. \n", getpid(), thread_idx, loop_arg.port_num, buff_rcv, read_size);
+            printf( "[server:%d/%d/%d] recv data --> [%s] / [%d]. \n", getpid(), thread_idx, loop_arg.port_num, buff_rcv, read_size);
             
             loop_arg.msg_recv_proc(buff_rcv, read_size, buff_resp, &buff_resp_len);
 
@@ -217,10 +217,17 @@ int udp_ipc_data_recv_timeout(int port_num, int timeout_sec, unsigned char* buff
         else
         {
             if (( buff != NULL ) && (buff_len > read_size))
+			{
                 memcpy(buff, buff_rcv, read_size);
+				// printf( "[server:%d/%d] recv data --> [%s] / [%d]. \n", getpid(), port_num, buff_rcv, read_size);
+			}
+			else
+			{
+				printf( "[server:%d/%d] recv data size err--> [%d] / [%d]. \n", getpid(), port_num, buff_len, read_size);
+			}
             // char ip_buffer[256] = {0,};    
             //inet_ntop(AF_INET, &(client_addr.sin_addr), ip_buffer, 256);
-            printf( "[server:%d/%d] recv data --> [%s] / [%d]. \n", getpid(), port_num, buff_rcv, read_size);
+            
             
         }
     }

@@ -4,7 +4,10 @@
 #define UDP_IPC_PORT__TEST_APP          30991
 #define UDP_IPC_PORT__CHK_GLOBAL_MEM	30992
 #define UDP_IPC_PORT__CHK_APP_MEM       30993
-//#define UDP_IPC_PORT__APP2	            30993
+
+#define UDP_IPC_PORT__GPS_NMEA_DATA_CH  30994
+#define UDP_IPC_PORT__GPS_MGR_CH        30995
+//#define UDP_IPC_PORT__APP2            30993
 #define IPC_BUFF_SIZE 1024
 
 #define MAX_REUSE_SOCK_CNT      10
