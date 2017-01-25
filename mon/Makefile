@@ -28,13 +28,13 @@ $(TARGET):	$(OBJS)
 clean:
 	rm -rf $(TARGET) $(OBJS) 
 	
-#install:
-#	$(Q)$(call check_install_dir, $(DESTDIR)$(WORK_PATH)/$(VER))
-#	cp -v $(TARGET) $(DESTDIR)$(WORK_PATH)/$(VER)/$(NAME)
-
 install:
-	$(Q)$(call check_install_dir, $(DESTDIR)$(WORK_PATH))
-	cp -v $(TARGET) $(DESTDIR)$(WORK_PATH)/$(NAME)
+	$(Q)$(call check_install_dir, $(DESTDIR)$(WORK_PATH)/$(VER))
+	cp -v $(TARGET) $(DESTDIR)$(WORK_PATH)/$(VER)/$(NAME)
+
+#install:
+#	$(Q)$(call check_install_dir, $(DESTDIR)$(WORK_PATH))
+#	cp -v $(TARGET) $(DESTDIR)$(WORK_PATH)/$(NAME)
 	
 uninstall:
 	rm -rf $(DESTDIR)$(WORK_PATH)/$(NAME)
