@@ -15,6 +15,18 @@
 
 #include "board_system.h"
 
+static void _chk_gpio_num(const int gpio)
+{
+	char buf[32] = {0};
+	sprintf(buf, GPIO_VALUE, gpio);
+
+	// export 되어있지 않은경우 체크
+	if (mds_api_check_exist_file(buf, 1) == DEFINES_MDS_API_OK)
+		return;
+
+	mds_api_write_procfs(gpio, GPIO_EXPORT);
+}
+
 int mds_api_gpio_get_value(const int gpio)
 {
 	int fd = 0, value = 0;
@@ -28,6 +40,8 @@ int mds_api_gpio_get_value(const int gpio)
 		goto err;
 	}
     */
+	_chk_gpio_num(gpio);
+	
 	sprintf(buf, GPIO_VALUE, gpio);
 
 	/* open gpio sysfs */
@@ -63,6 +77,8 @@ int mds_api_gpio_set_value(const int gpio, const int value)
 		return -1;
 	}*/
 
+	_chk_gpio_num(gpio);
+
 	sprintf(buf, GPIO_VALUE, gpio);
 
 	fd = open(buf, O_RDWR);
@@ -93,6 +109,8 @@ int mds_api_gpio_set_direction(const int gpio, gpioDirection_t direction)
 		printf("gpio[%d] is not valied\n", gpio);
 		return -1;
 	}*/
+
+	_chk_gpio_num(gpio);
 
 	sprintf(buf, GPIO_DIRECTION, gpio);
 

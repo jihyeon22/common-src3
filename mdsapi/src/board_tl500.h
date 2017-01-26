@@ -44,4 +44,6 @@
 #define GPIO_VALUE						CONCAT_STR(GPIO_ROOT_DIR, "/gpio%d/value")
 #define GPIO_DIRECTION					CONCAT_STR(GPIO_ROOT_DIR, "/gpio%d/direction")
 
-
+#define GPS_ANT_CHK_GPIO_NUMBER         7
+#define GPS_ANT_CHK_CONN_VAL            (1)
+#define GPS_ANT_CHK_DISCONN_VAL         (0);

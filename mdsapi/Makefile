@@ -31,9 +31,10 @@ LIB_SRCS  = src/crc.c src/debug.c src/file.c src/gpio.c src/nettools.c src/power
 LIB_SRCS  += src/proc.c src/process.c src/stackdump.c src/string.c src/time.c
 LIB_SRCS  += src/uart.c src/validation.c 
 LIB_SRCS  += src/udp_ipc_server.c src/udp_ipc_clnt.c 
-LIB_SRCS  += src/gpsd_util.c
+LIB_SRCS  += src/gps_util.c
 LIB_SRCS  += src/mds_shm.c 
 LIB_SRCS  += src/led.c 
+LIB_SRCS  += src/adc.c 
 
 LIB_OBJS = $(LIB_SRCS:.c=.o)
 

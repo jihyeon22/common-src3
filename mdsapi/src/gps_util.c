@@ -20,7 +20,7 @@
 #define GPS_IPC_MSG__SET_GPS_RESET_WARM_BOOT    "set_reset_w"
 // ------------------------------------
 
-int gpsd_start(int type)
+int mds_api_gpsd_start(int type)
 {
     int i = 10;
     int send_len = 0;
@@ -45,7 +45,7 @@ int gpsd_start(int type)
 	return 0;
 }
 
-int gpsd_stop()
+int mds_api_gpsd_stop()
 {
     int i = 10;
     int send_len = 0;
@@ -61,7 +61,7 @@ int gpsd_stop()
 	return 0;
 }
 
-int gpsd_reset(int type)
+int mds_api_gpsd_reset(int type)
 {
     int i = 10;
     int send_len = 0;
@@ -86,7 +86,7 @@ int gpsd_reset(int type)
 	return 0;
 }
 
-int gpsd_get_nmea(char* buff, int buff_len)
+int mds_api_gpsd_get_nmea(char* buff, int buff_len)
 {
 	unsigned char recv_buff[IPC_BUFF_SIZE] = {0,};
 	int recv_len = 0;
@@ -103,4 +103,12 @@ int gpsd_get_nmea(char* buff, int buff_len)
 	{
 		return -1;
 	}
+}
+
+mdsapiRet_t mds_api_gps_util_get_gps_ant()
+{
+	if ( mds_api_gpio_get_value(GPS_ANT_CHK_GPIO_NUMBER) == GPS_ANT_CHK_CONN_VAL )
+		return DEFINES_MDS_API_OK;
+	else 
+		return DEFINES_MDS_API_NOK;
 }

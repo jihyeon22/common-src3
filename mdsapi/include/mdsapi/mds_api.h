@@ -135,9 +135,14 @@ mdsapiRet_t mds_api_get_netstate(const char* netdev);
 #define MDS_API_GPS_TOOLS__TYPE_COLD    0
 #define MDS_API_GPS_TOOLS__TYPE_WARM    1
 
-int gpsd_start(int type);
-int gpsd_stop();
-int gpsd_reset(int type);
-int gpsd_get_nmea(char* buff, int buff_len);
+int mds_api_gpsd_start(int type);
+int mds_api_gpsd_stop();
+int mds_api_gpsd_reset(int type);
+int mds_api_gpsd_get_nmea(char* buff, int buff_len);
+mdsapiRet_t mds_api_gps_util_get_gps_ant();
 
+
+// ----------------------------------------
+// adc
+// ----------------------------------------
 #endif // __H_MDS_API__
