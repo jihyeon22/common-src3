@@ -145,4 +145,7 @@ mdsapiRet_t mds_api_gps_util_get_gps_ant();
 // ----------------------------------------
 // adc
 // ----------------------------------------
+// value -->  x.xx volt
+mdsapiRet_t mds_api_get_internal_batt_tl500(int* voltage);
+
 #endif // __H_MDS_API__
