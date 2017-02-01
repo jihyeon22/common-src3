@@ -15,16 +15,25 @@
 
 #include "board_system.h"
 
-static void _chk_gpio_num(const int gpio)
+static int _chk_gpio_num(const int gpio)
 {
 	char buf[32] = {0};
+
+	if (gpio <= 0)
+		return -1;
+	
 	sprintf(buf, GPIO_VALUE, gpio);
 
 	// export 되어있지 않은경우 체크
 	if (mds_api_check_exist_file(buf, 1) == DEFINES_MDS_API_OK)
-		return;
-
+		return 0;
+	
 	mds_api_write_procfs(gpio, GPIO_EXPORT);
+
+	if (mds_api_check_exist_file(buf, 1) == DEFINES_MDS_API_OK)
+		return 0;
+	else
+		return -1;
 }
 
 int mds_api_gpio_get_value(const int gpio)
@@ -40,7 +49,8 @@ int mds_api_gpio_get_value(const int gpio)
 		goto err;
 	}
     */
-	_chk_gpio_num(gpio);
+	if ( _chk_gpio_num(gpio) == -1 )
+		return -1;
 	
 	sprintf(buf, GPIO_VALUE, gpio);
 
@@ -77,7 +87,8 @@ int mds_api_gpio_set_value(const int gpio, const int value)
 		return -1;
 	}*/
 
-	_chk_gpio_num(gpio);
+	if ( _chk_gpio_num(gpio) == -1 )
+		return -1;
 
 	sprintf(buf, GPIO_VALUE, gpio);
 
@@ -110,7 +121,8 @@ int mds_api_gpio_set_direction(const int gpio, gpioDirection_t direction)
 		return -1;
 	}*/
 
-	_chk_gpio_num(gpio);
+	if ( _chk_gpio_num(gpio) == -1 )
+		return -1;
 
 	sprintf(buf, GPIO_DIRECTION, gpio);
 
