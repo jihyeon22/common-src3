@@ -75,6 +75,7 @@ enum gpioDirection
 int mds_api_gpio_set_value(const int gpio, const int value);
 int mds_api_gpio_get_value(const int gpio);
 int mds_api_gpio_set_direction(const int gpio, gpioDirection_t direction);
+int export_chk_gpio_num(const int gpio);
 
 // --------------------------------------
 // led
