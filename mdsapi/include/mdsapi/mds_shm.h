@@ -18,8 +18,16 @@ typedef struct shm_per_app_data
 
 typedef struct shm_global_data
 {
-	int test_int;
-    char msg_buff[1024];
+	int test_mode;  // 양산테스트 모드
+    int reserved_int_1;
+    int reserved_int_2;
+    int reserved_int_3;
+    int reserved_int_4;
+    int reserved_int_5;
+    int reserved_int_6;
+    int reserved_int_7;
+    char reserved_buff_1[512];
+    char reserved_buff_2[512];
 }__attribute__((packed))SHM_GLOBAL_DATA_T;
 
 int app_shm_set_global_data(SHM_GLOBAL_DATA_T* data);

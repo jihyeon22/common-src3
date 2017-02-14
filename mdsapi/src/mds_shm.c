@@ -81,8 +81,17 @@ int app_shm_dbg_print_global_data()
     else
     {
         printf(" ------- shm global data -------------- \r\n");
-        printf("  --> test_int [%d] \r\n", shm_data_p->test_int);
-        printf("  --> msg_buff [%s] \r\n", shm_data_p->msg_buff);
+        printf("  --> test_mode [%d] \r\n", shm_data_p->test_mode);
+        printf("  --> reserved_int_1 [%d] \r\n", shm_data_p->reserved_int_1);
+        printf("  --> reserved_int_2 [%d] \r\n", shm_data_p->reserved_int_2);
+        printf("  --> reserved_int_3 [%d] \r\n", shm_data_p->reserved_int_3);
+        printf("  --> reserved_int_4 [%d] \r\n", shm_data_p->reserved_int_4);
+        printf("  --> reserved_int_5 [%d] \r\n", shm_data_p->reserved_int_5);
+        printf("  --> reserved_int_6 [%d] \r\n", shm_data_p->reserved_int_6);
+        printf("  --> reserved_int_7 [%d] \r\n", shm_data_p->reserved_int_7);
+
+        printf("  --> reserved_buff_1 [%s] \r\n", shm_data_p->reserved_buff_1);
+        printf("  --> reserved_buff_2 [%s] \r\n", shm_data_p->reserved_buff_2);
         printf(" -------------------------------------- \r\n");
     }
     return MDS_SHM_TRUE;
