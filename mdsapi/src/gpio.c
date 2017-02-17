@@ -25,7 +25,7 @@ int export_chk_gpio_num(const int gpio)
 	sprintf(buf, GPIO_VALUE, gpio);
 
 	// export 되어있지 않은경우 체크
-	if (mds_api_check_exist_file(buf, 1) == DEFINES_MDS_API_OK)
+	if (mds_api_check_exist_file(buf, 0) == DEFINES_MDS_API_OK)
 	{
 		//printf("donot exist file >> [%s]\r\n", buf);
 		return 0;

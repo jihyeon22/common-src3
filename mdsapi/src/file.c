@@ -231,12 +231,19 @@ unsigned char mds_api_checksum_xor(const unsigned char *buff, const int data_len
 
 int mds_api_check_exist_file(const char *filename, int timeout)
 {
-        while(timeout-- > 0) {
-                if(access(filename, F_OK) == 0)
-                        return DEFINES_MDS_API_OK;
-                sleep(1);
-        }
-        return DEFINES_MDS_API_NOK;
+    if ( timeout == 0 )
+    {
+        if(access(filename, F_OK) == 0)
+             return DEFINES_MDS_API_OK;
+    }
+
+    while(timeout-- > 0) {
+            if(access(filename, F_OK) == 0)
+                    return DEFINES_MDS_API_OK;
+            sleep(1);
+    }
+    
+    return DEFINES_MDS_API_NOK;
 }
 
 int mds_api_cp(const char *from, const char *to,  int overwrite)
