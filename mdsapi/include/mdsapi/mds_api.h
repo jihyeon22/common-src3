@@ -148,6 +148,7 @@ mdsapiRet_t mds_api_gps_util_get_gps_ant();
 // ----------------------------------------
 #include <time.h>
 time_t mds_api_get_kerneltime();
+time_t get_system_time_utc_sec(int timezone_adj_hour);
 
 // ----------------------------------------
 // adc

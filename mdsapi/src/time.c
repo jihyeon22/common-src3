@@ -10,6 +10,9 @@
 #include <sys/stat.h>
 #include <dirent.h>
 
+#include <time.h>
+#include <sys/time.h>
+
 #include <mdsapi/mds_api.h>
 
 
@@ -51,4 +54,25 @@ time_t mds_api_get_kerneltime()
 	}
 	
 	return ts.tv_sec;
+}
+
+
+time_t get_system_time_utc_sec(int timezone_adj_hour)
+{
+	struct timeval tv;
+	struct tm ttm;
+
+	time_t tmp_timeval = 0;
+
+	gettimeofday(&tv, NULL);
+
+	localtime_r(&tv.tv_sec, &ttm);
+
+	if ( ttm.tm_year+1900 < 2016)
+		return 0;
+
+
+	tmp_timeval = mktime(&ttm) - (timezone_adj_hour * 60 * 60);
+
+	return tmp_timeval;
 }
