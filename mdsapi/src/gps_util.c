@@ -101,7 +101,7 @@ int mds_api_gpsd_get_nmea(char* buff, int buff_len)
 	}
 	else
 	{
-		return -1;
+		return 0;
 	}
 }
 

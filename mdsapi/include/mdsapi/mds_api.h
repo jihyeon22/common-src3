@@ -101,6 +101,8 @@ void mds_api_stackdump_init(void);
 // debug 
 // --------------------------------------
 void mds_api_debug_hexdump_buff(unsigned char *buff, const int buff_len);
+mdsapiRet_t mds_api_write_time_and_log(const char *filename, char *log);
+mdsapiRet_t mds_api_write_time_and_log_maxsize(const char *filename, char *log, int max_size);
 
 // --------------------------------------
 // uart
