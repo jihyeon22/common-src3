@@ -22,7 +22,7 @@
 
 int mds_api_gpsd_start(int type)
 {
-    int i = 10;
+    //int i = 10;
     int send_len = 0;
 	
 	unsigned char send_buff[IPC_BUFF_SIZE] = {0,};
@@ -47,7 +47,7 @@ int mds_api_gpsd_start(int type)
 
 int mds_api_gpsd_stop()
 {
-    int i = 10;
+    //int i = 10;
     int send_len = 0;
 	
 	unsigned char send_buff[IPC_BUFF_SIZE] = {0,};
@@ -63,7 +63,7 @@ int mds_api_gpsd_stop()
 
 int mds_api_gpsd_reset(int type)
 {
-    int i = 10;
+    //int i = 10;
     int send_len = 0;
 	
 	unsigned char send_buff[IPC_BUFF_SIZE] = {0,};
@@ -89,20 +89,38 @@ int mds_api_gpsd_reset(int type)
 int mds_api_gpsd_get_nmea(char* buff, int buff_len)
 {
 	unsigned char recv_buff[IPC_BUFF_SIZE] = {0,};
+	unsigned char recv_buff_remove_space[IPC_BUFF_SIZE] = {0,};
 	int recv_len = 0;
 	
 	// 데이터를 1 초당보내기때문에 타임아웃을 2초로 한다.
 	recv_len = udp_ipc_data_recv_timeout(UDP_IPC_PORT__GPS_NMEA_DATA_CH, 2, recv_buff, IPC_BUFF_SIZE);
 	
-	if ( recv_len > 0 )
+	if ( recv_len <= 0 )
 	{
-		memcpy(buff, recv_buff, recv_len);
-		return recv_len;
-	}
-	else
-	{
+		printf("[UDP_GPS_GET] ERROR : cannot recv data \r\n");
 		return 0;
 	}
+
+	// remove space char..
+	recv_len = mds_api_remove_char(recv_buff, recv_buff_remove_space, recv_len, ' ' );
+	
+	// printf(" recv_buff_remove_space [%s] [%d]\r\n", recv_buff_remove_space, recv_len);
+
+	if ( recv_len <= 0 )
+	{
+		printf("[UDP_GPS_GET] ERROR : recv data invalid \r\n");
+		return 0;
+	}
+	
+	if ( (strstr(recv_buff_remove_space, "$GPGSA") == NULL) || (strstr(recv_buff_remove_space, "$GPRMC") == NULL))
+	{
+		printf("[UDP_GPS_GET] ERROR : recv data has no gps data \r\n");
+		return 0;
+	}
+	
+	memcpy(buff, recv_buff_remove_space, recv_len);
+	return recv_len;
+
 }
 
 mdsapiRet_t mds_api_gps_util_get_gps_ant()

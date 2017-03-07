@@ -207,7 +207,7 @@ int udp_ipc_data_recv_timeout(int port_num, int timeout_sec, unsigned char* buff
     {
         client_addr_size  = sizeof( client_addr );
         
-        printf( "[server:%d/%d] wait data.. timeout [%d]. \n", getpid(), port_num, timeout_sec);
+        //printf( "[server:%d/%d] wait data.. timeout [%d]. \n", getpid(), port_num, timeout_sec);
 
         if ( (read_size = recvfrom( svr_sock, buff_rcv, IPC_BUFF_SIZE, 0 , ( struct sockaddr*)&client_addr, &client_addr_size)) <= 0 )
         {
@@ -224,6 +224,9 @@ int udp_ipc_data_recv_timeout(int port_num, int timeout_sec, unsigned char* buff
 			else
 			{
 				printf( "[server:%d/%d] recv data size err--> [%d] / [%d]. \n", getpid(), port_num, buff_len, read_size);
+                // buffer overflow..
+                close(svr_sock);
+                return -1;
 			}
             // char ip_buffer[256] = {0,};    
             //inet_ntop(AF_INET, &(client_addr.sin_addr), ip_buffer, 256);
