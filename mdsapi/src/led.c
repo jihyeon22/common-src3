@@ -34,7 +34,7 @@ static void _led_trigger_timer(const char *name, const int delay_on, const int d
 	char tmp_itoa[64] = {0,};
 	
 	sprintf(buf, LED_ROOT_PROC_TRIGER, name);
-	printf("%s - %d -> %s\r\n",__func__, __LINE__, buf);
+	//printf("%s - %d -> %s\r\n",__func__, __LINE__, buf);
 	fd = open(buf, O_RDWR);
 	if(fd < 0) {
 		return;
@@ -66,7 +66,7 @@ static void _led_set_color(const char *name, const char *color)
 	char buf[64] = {0};
 
 	sprintf(buf, LED_ROOT_PROC_COLOR, name);
-	printf("%s - %d -> %s\r\n",__func__, __LINE__, buf);
+	//printf("%s - %d -> %s\r\n",__func__, __LINE__, buf);
 
 	fd = open(buf, O_RDWR);
 	if(fd < 0) {
@@ -91,7 +91,7 @@ static void _led_set_brightness(const char *name, unsigned char value)
 	int brightness = value;
 
 	sprintf(buf, LED_ROOT_PROC_BRIGHTNESS, name);
-	printf("%s - %d -> %s\r\n",__func__, __LINE__, buf);
+	//printf("%s - %d -> %s\r\n",__func__, __LINE__, buf);
 
 	fd = open(buf, O_RDWR);
 	if(fd < 0) {
