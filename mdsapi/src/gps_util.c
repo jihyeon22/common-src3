@@ -86,6 +86,8 @@ int mds_api_gpsd_reset(int type)
 	return 0;
 }
 
+#define GPSD_DEBUG_LOG	"/system/mds/log/gpsd_debug.log"
+#define GPSD_DEBUG_LOG_MAXSIZE_BYTE	10240
 int mds_api_gpsd_get_nmea(char* buff, int buff_len)
 {
 	unsigned char recv_buff[IPC_BUFF_SIZE] = {0,};
@@ -109,12 +111,14 @@ int mds_api_gpsd_get_nmea(char* buff, int buff_len)
 	if ( recv_len <= 0 )
 	{
 		printf("[UDP_GPS_GET] ERROR : recv data invalid \r\n");
+//		mds_api_write_time_and_log_maxsize(GPSD_DEBUG_LOG, "[UDP_GPS_GET] ERROR : recv data invalid", GPSD_DEBUG_LOG_MAXSIZE_BYTE);
 		return 0;
 	}
 	
 	if ( (strstr(recv_buff_remove_space, "$GPGSA") == NULL) || (strstr(recv_buff_remove_space, "$GPRMC") == NULL))
 	{
 		printf("[UDP_GPS_GET] ERROR : recv data has no gps data \r\n");
+//		mds_api_write_time_and_log_maxsize(GPSD_DEBUG_LOG, "[UDP_GPS_GET] ERROR : recv data has no gps data", GPSD_DEBUG_LOG_MAXSIZE_BYTE);
 		return 0;
 	}
 	
