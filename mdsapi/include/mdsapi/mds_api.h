@@ -123,7 +123,7 @@ mdsapiRet_t mds_api_check_imei(const char *buff, const int buff_len);
 mdsapiRet_t mds_api_check_ip(const char *buff, const int buff_len);
 mdsapiRet_t mds_api_check_dns_addr(const char *buff, const int buff_len);
 mdsapiRet_t mds_api_check_is_num(const char *buff, const int buff_len);
-mdsapiRet_t validation_check_lat_lon(float lat, float lon);
+mdsapiRet_t mds_api_validation_check_lat_lon(float lat, float lon);
 
 //---------------------------------------
 // net tool
