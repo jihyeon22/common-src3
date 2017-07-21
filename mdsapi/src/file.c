@@ -369,7 +369,7 @@ int mds_api_get_file_size(const char* file_path)
         return -1;
     }
     
-    fp = fopen(MDS_API_CALLSTACK_LOG_PATH, "r");
+    fp = fopen(file_path, "r");
     if(fp == NULL)
     {
         return -1;
