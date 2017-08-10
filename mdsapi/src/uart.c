@@ -219,6 +219,41 @@ int mds_api_uart_read(int fd, unsigned char *buf, int nbytes, int ftime)
 }
 
 
+//int uart_read(int fd, void *buf, size_t nbytes, int ftime)
+int mds_api_uart_read2(int fd, unsigned char *buf, int nbytes, int ftime_usec)
+{
+	fd_set reads;
+	struct timeval tout;
+	
+	int result = 0;
+	int nreadByte;
+
+	FD_ZERO(&reads);
+	FD_SET(fd, &reads);
+
+	nreadByte = nbytes;
+	
+	tout.tv_sec = 0;
+	tout.tv_usec = ftime_usec;
+	
+	result = select(fd + 1, &reads, 0, 0, &tout);
+	
+	if (result == -1) 
+	{
+	//	LOGE(eSVC_BASE, "%s : %s : select error\n", __FILE__, __func__);
+	//	break;
+	}
+	else
+	{
+		//result = read(fd, (unsigned char *)buf, nreadByte);
+		result = read(fd, buf, nreadByte);
+	}
+	
+	//printf("uart_read ret [%d]\r\n",
+
+	return result;
+}
+
 int mds_api_uart_write(int fd, const void *buf, size_t nbytes)
 {
 	int result;

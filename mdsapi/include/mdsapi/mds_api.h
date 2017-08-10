@@ -112,6 +112,7 @@ int mds_api_uart_flush(int fd, int ftimes, int ftimeu);
 int mds_api_uart_check(int fd, int ftime, int retry);
 int mds_api_uart_size_read(int fd, unsigned char *buf, int nbytes, int ftime);
 int mds_api_uart_read(int fd, unsigned char *buf, int nbytes, int ftime);
+int mds_api_uart_read2(int fd, unsigned char *buf, int nbytes, int ftime_usec);
 int mds_api_uart_write(int fd, const void *buf, size_t nbytes);
 void mds_api_uart_close(int fd);
 
