@@ -34,6 +34,15 @@ static int zombiecnt = 0;
 
 static int _mds_api_proc_find(const char* name);
 
+static char* _process_name_fix(const char* src_name)
+{
+    char fix_name[MAX_PROCESS_NAME_LEN+1] = {0,};
+
+    snprintf(fix_name, sizeof(fix_name), "%s", src_name);
+    //printf("process name fix -> [%s] / [%s]\r\n", src_name, fix_name);
+    return fix_name;
+}
+
 int mds_api_proc_find_cnt(int max_cnt, const char* name)
 {
     int ret = 0;
@@ -76,8 +85,13 @@ static int _mds_api_proc_find(const char* name)
     FILE *fp = NULL;
     int isfounded = 0;
     int num_thread = 0;
+    char fix_name[128] = {0,};
 
     pid_mon = getpid();
+
+    // process name max len check.
+    sprintf(fix_name, "%s", _process_name_fix(name));
+    printf(">>>> %s() : process name fix  [%s] -> [%s]\r\n", __func__, name, fix_name);
 
     if(!(dir = opendir("/proc"))) {
         perror("can't open /proc");
@@ -96,7 +110,7 @@ static int _mds_api_proc_find(const char* name)
                 closedir(dir);
                 return -1;
             }
-            if(!strcmp(pname, name)) {
+            if(!strcmp(pname, fix_name)) {
                 num_thread++;
                 if(state == 'Z') {
                     int reskill = 0;
