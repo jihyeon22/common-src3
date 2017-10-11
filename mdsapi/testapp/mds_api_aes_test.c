@@ -72,7 +72,7 @@ static void test_decrypt_cbc2(void)
     printf("base64 decode size : [%d]\r\n", ret_base64_size);
 
     // 2. decrypt binary data..
-    decrypt_size = mds_api_AES_CBC_decrypt_buffer2(decrypt_data, encrypt_data, ret_base64_size, in_key, in_key);
+    decrypt_size = mds_api_AES_CBC_decrypt_buffer2(decrypt_data, encrypt_data, ret_base64_size, in_key, in_key, 0x08);
 
 
     printf("CBC decrypt: [%s] [%d]\r\n", decrypt_data, decrypt_size);
@@ -125,7 +125,7 @@ static void test_encrypt_cbc2(void)
     
     strcpy(in_key, ENCRYPT_KEY);
 
-    encrypt_target_len = mds_api_AES_CBC_encrypt_buffer2(encrypt_data, ORIGINAL_STR, strlen(ORIGINAL_STR), in_key, in_key);
+    encrypt_target_len = mds_api_AES_CBC_encrypt_buffer2(encrypt_data, ORIGINAL_STR, strlen(ORIGINAL_STR), in_key, in_key, 0x08);
 
     printf("CBC encrypt2: ");
     ret_base64_size = mds_api_b64_encode(encrypt_data, encrypt_target_len, base64_str_buff, sizeof(base64_str_buff));
@@ -135,12 +135,41 @@ static void test_encrypt_cbc2(void)
 }
 
 
+static void test_encrypt_cbc2_malloc(void)
+{
+    char target_str[] = ORIGINAL_STR;
+
+    int i = 0;
+    
+    char in_key[16] ={0,};
+
+    unsigned char* encrypt_data_p = NULL;
+    int encrypt_target_len = 0;
+    
+    char base64_str_buff[512] ={ 0 ,};
+    int ret_base64_size = 0;
+    
+    strcpy(in_key, ENCRYPT_KEY);
+
+    encrypt_target_len = mds_api_AES_CBC_encrypt_buffer2_malloc(&encrypt_data_p, ORIGINAL_STR, strlen(ORIGINAL_STR), in_key, in_key, 0x08);
+
+    printf("CBC encrypt2: ");
+    ret_base64_size = mds_api_b64_encode(encrypt_data_p, encrypt_target_len, base64_str_buff, sizeof(base64_str_buff));
+
+    printf(">> %d <<\r\n", ret_base64_size);
+    printf(">> %s <<\r\n", base64_str_buff);
+
+    free(encrypt_data_p);
+}
+
+
+
 void main()
 {
     // api test 
     //mds_api_write_data_maxsize("/data/mds/log/log.test.txt","testmsg\r\n",strlen("testmsg\r\n"),128);
-    
+    printf("%s start\r\n",__TIME__);
 //    mds_api_poweroff_and_log("testapp", "bye");
-    test_encrypt_cbc2();
+    test_encrypt_cbc2_malloc();
     test_decrypt_cbc2();
 }

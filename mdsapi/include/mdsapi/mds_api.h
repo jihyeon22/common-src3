@@ -177,11 +177,15 @@ void mds_api_AES_ECB_encrypt(const unsigned char* input, const unsigned char* ke
 void mds_api_AES_ECB_decrypt(const unsigned char* input, const unsigned char* key, unsigned char *output, const unsigned int length);
 
 void mds_api_AES_CBC_encrypt_buffer(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv);
-int  mds_api_AES_CBC_encrypt_buffer2(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv);
-
 void mds_api_AES_CBC_decrypt_buffer(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv);
-int  mds_api_AES_CBC_decrypt_buffer2(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv);
+
+int mds_api_AES_CBC_encrypt_buffer2(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv, char init_data);
+// malloc version need to free().
+int mds_api_AES_CBC_encrypt_buffer2_malloc(unsigned char **output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv, char init_data);
+int mds_api_AES_CBC_decrypt_buffer2(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv, char init_data);
+
 
 int mds_api_AES_input_buff_init(unsigned char* in_buff, int in_buff_size, unsigned char* encrypt_target, int encrypt_target_len, unsigned char init_field);
+int mds_api_AES_input_buff_init_and_malloc(unsigned char** in_buff, unsigned char* encrypt_target, int encrypt_target_len, unsigned char init_field);
 
 #endif // __H_MDS_API__

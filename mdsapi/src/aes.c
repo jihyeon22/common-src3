@@ -642,10 +642,8 @@ void mds_api_AES_CBC_decrypt_buffer(unsigned char *output, unsigned char *input,
 
 }
 
-
 #define ENCRYPT_API2_MAX_SUPPORT_BUFF_SIZE   1024
-#define ENCRYPT_API2_BUFFER_INIT_DATA        0x08
-int mds_api_AES_CBC_encrypt_buffer2(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv)
+int mds_api_AES_CBC_encrypt_buffer2(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv, char init_data)
 {
     // max support encrypt
     unsigned char input_data_buff[ENCRYPT_API2_MAX_SUPPORT_BUFF_SIZE] = { 0, };
@@ -655,58 +653,92 @@ int mds_api_AES_CBC_encrypt_buffer2(unsigned char *output, unsigned char *input,
     if (length > (ENCRYPT_API2_MAX_SUPPORT_BUFF_SIZE - BLOCKLEN))
         return -1;
 
-    encrypt_target_len = mds_api_AES_input_buff_init(input_data_buff, sizeof(input_data_buff), input, length, ENCRYPT_API2_BUFFER_INIT_DATA);
+    encrypt_target_len = mds_api_AES_input_buff_init(input_data_buff, sizeof(input_data_buff), input, length, init_data);
     mds_api_AES_CBC_encrypt_buffer(output, input_data_buff, encrypt_target_len, key, iv);
 
     return encrypt_target_len;
 }
 
-int mds_api_AES_CBC_decrypt_buffer2(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv)
+// malloc version
+int mds_api_AES_CBC_encrypt_buffer2_malloc(unsigned char **output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv, char init_data)
 {
-    unsigned char output_data_buff[ENCRYPT_API2_MAX_SUPPORT_BUFF_SIZE] = { 0, };
+    // max support encrypt
+    unsigned char* input_data_buff_p = NULL;
+    unsigned char* output_data_buff_p = NULL;
 
+    int encrypt_target_len = 0;
+
+    encrypt_target_len = mds_api_AES_input_buff_init_and_malloc(&input_data_buff_p, input, length, init_data);
+
+    output_data_buff_p = malloc(encrypt_target_len);
+
+    mds_api_AES_CBC_encrypt_buffer(output_data_buff_p, input_data_buff_p, encrypt_target_len, key, iv);
+    free(input_data_buff_p);
+    
+    *output = output_data_buff_p;
+    return encrypt_target_len;
+}
+
+
+int mds_api_AES_CBC_decrypt_buffer2(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv, char init_data)
+{
     int  i;
     
     if (length > (ENCRYPT_API2_MAX_SUPPORT_BUFF_SIZE - BLOCKLEN))
         return -1;
         
-    mds_api_AES_CBC_decrypt_buffer(output_data_buff, input, length, key, iv);
+    mds_api_AES_CBC_decrypt_buffer(output, input, length, key, iv);
     
     for (i = 0 ; i < length ; i ++)
     {
         //printf("output_data_buff[%d] -> [%d] \r\n", length - i - 1,output_data_buff[length - i - 1] );
-        if ( output_data_buff[length - i - 1] != ENCRYPT_API2_BUFFER_INIT_DATA ) 
+        if ( output[length - i - 1] != init_data ) 
             break;
     }
 
-    output_data_buff[length - i + 1 ] = '\0';
-    memcpy(output, output_data_buff, (length - i));
+    output[length - i + 1 ] = '\0';
     return (length - i);
+}
+
+
+
+int mds_api_AES_input_buff_get_size(int encrypt_target_len)
+{
+    int extra_data = encrypt_target_len % BLOCKLEN; /* Remaining bytes in the last non-full block */
+    int data_count = encrypt_target_len / BLOCKLEN;
+    int encrypt_buff_len = 0;
+
+    if (extra_data)
+        encrypt_buff_len = (data_count + 1) * BLOCKLEN ;
+    else
+        encrypt_buff_len = data_count * BLOCKLEN;
+
+    return encrypt_buff_len;
 }
 
 int mds_api_AES_input_buff_init(unsigned char* in_buff, int in_buff_size, unsigned char* encrypt_target, int encrypt_target_len, unsigned char init_field)
 {
-    int encrypt_buff_len = 0;
-    int i = 0;
-    int extra_data = encrypt_target_len % BLOCKLEN; /* Remaining bytes in the last non-full block */
-    int data_count = encrypt_target_len / BLOCKLEN;
-    
+    int encrypt_buff_len = mds_api_AES_input_buff_get_size(encrypt_target_len);
+
     memset(in_buff, init_field, in_buff_size);
-
-    if (extra_data)
-    {
-        encrypt_buff_len = (data_count + 1) * BLOCKLEN ;
-    }
-    else
-    {
-        encrypt_buff_len = data_count * BLOCKLEN;
-    }
-
-    //printf("encrypt_target [%s]\r\n", encrypt_target);
-    //printf("encrypt_target len [%d]\r\n", encrypt_target_len);
-    //printf("data_count [%d] / extra_data [%d] / encrypt_buff_len [%d] \r\n", data_count, extra_data, encrypt_buff_len);
-
     memcpy(in_buff, encrypt_target, encrypt_target_len);
 
     return encrypt_buff_len;
 }
+
+int mds_api_AES_input_buff_init_and_malloc(unsigned char** in_buff, unsigned char* encrypt_target, int encrypt_target_len, unsigned char init_field)
+{
+    int encrypt_buff_len = mds_api_AES_input_buff_get_size(encrypt_target_len);
+    unsigned char* in_buff_p = NULL;
+
+    in_buff_p = malloc(encrypt_buff_len);
+
+    memset(in_buff_p, init_field, encrypt_buff_len);
+    memcpy(in_buff_p, encrypt_target, encrypt_target_len);
+
+    *in_buff = in_buff_p;
+    return encrypt_buff_len;
+}
+
+
+
