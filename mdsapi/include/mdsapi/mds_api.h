@@ -63,6 +63,10 @@ int mds_api_read_line ( const char *cmd, const int cmd_len, char* buff, int buff
 int mds_api_str_replace ( const char *string, const char *substr, const char *replacement , char* buff, int buff_len);
 int mds_api_count_char(const char* str, int str_len, const char c);
 
+int mds_api_b64_encode(const unsigned char *src, int src_size, char *out_buff, int out_buff_len);
+int mds_api_b64_decode(const char *src, int src_size, unsigned char *out_buff, int out_buff_len);
+
+
 // --------------------------------------
 // gpio 
 // --------------------------------------
@@ -158,5 +162,26 @@ time_t get_system_time_utc_sec(int timezone_adj_hour);
 // ----------------------------------------
 // value -->  x.xx volt
 mdsapiRet_t mds_api_get_internal_batt_tl500(int* voltage);
+
+// ----------------------------------------
+// aes
+// ----------------------------------------
+// MDS modified : select aes type
+#define AES_TYPE_AES128   0   // default is AES128
+#define AES_TYPE_AES192   1
+#define AES_TYPE_AES256   2
+
+int mds_api_AES_init(int type);
+
+void mds_api_AES_ECB_encrypt(const unsigned char* input, const unsigned char* key, unsigned char* output, const unsigned int length);
+void mds_api_AES_ECB_decrypt(const unsigned char* input, const unsigned char* key, unsigned char *output, const unsigned int length);
+
+void mds_api_AES_CBC_encrypt_buffer(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv);
+int  mds_api_AES_CBC_encrypt_buffer2(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv);
+
+void mds_api_AES_CBC_decrypt_buffer(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv);
+int  mds_api_AES_CBC_decrypt_buffer2(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv);
+
+int mds_api_AES_input_buff_init(unsigned char* in_buff, int in_buff_size, unsigned char* encrypt_target, int encrypt_target_len, unsigned char init_field);
 
 #endif // __H_MDS_API__

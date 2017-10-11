@@ -35,6 +35,8 @@ LIB_SRCS  += src/gps_util.c
 LIB_SRCS  += src/mds_shm.c 
 LIB_SRCS  += src/led.c 
 LIB_SRCS  += src/adc.c 
+LIB_SRCS  += src/aes.c 
+LIB_SRCS  += src/base64.c 
 
 LIB_OBJS = $(LIB_SRCS:.c=.o)
 
