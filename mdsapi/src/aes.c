@@ -683,10 +683,7 @@ int mds_api_AES_CBC_encrypt_buffer2_malloc(unsigned char **output, unsigned char
 int mds_api_AES_CBC_decrypt_buffer2(unsigned char *output, unsigned char *input, int length, const unsigned char *key, const unsigned char *iv, char init_data)
 {
     int  i;
-    
-    if (length > (ENCRYPT_API2_MAX_SUPPORT_BUFF_SIZE - BLOCKLEN))
-        return -1;
-        
+
     mds_api_AES_CBC_decrypt_buffer(output, input, length, key, iv);
     
     for (i = 0 ; i < length ; i ++)
