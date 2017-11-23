@@ -41,10 +41,10 @@ mdsapiRet_t mds_api_poweroff()
 {
     int power_off_cnt = 0;
 	
-#ifdef BOARD_TL500S
+//#ifdef BOARD_TL500S // all board
 	// reset workaround : hw bug
 	mds_api_gpio_set_value(15, 0);
-#endif
+//#endif
     while(1)
     {
         system("poweroff &");
