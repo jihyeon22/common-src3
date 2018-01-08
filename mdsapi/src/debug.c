@@ -61,7 +61,7 @@ mdsapiRet_t mds_api_write_time_and_log_maxsize(const char *filename, char *log, 
     gettimeofday(&tv, NULL);
     ptm = localtime(&tv.tv_sec);
     
-    write_size = snprintf(buff, sizeof(buff)-1, "[%02d.%02d.%02d/%02d:%02d:%02d] %s\n", ptm->tm_year%100, ptm->tm_mon, ptm->tm_mday, ptm->tm_hour, ptm->tm_min, ptm->tm_sec, log);
+    write_size = snprintf(buff, sizeof(buff)-1, "[%02d.%02d.%02d/%02d:%02d:%02d] %s\n", ptm->tm_year%100, ptm->tm_mon + 1, ptm->tm_mday, ptm->tm_hour, ptm->tm_min, ptm->tm_sec, log);
 
 	return mds_api_write_data_maxsize(filename, (unsigned char*)buff, write_size, max_size);
 }

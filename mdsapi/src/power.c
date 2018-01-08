@@ -32,7 +32,7 @@ static void devel_log_poweroff(const char *log)
     gettimeofday(&tv, NULL);
     ptm = localtime(&tv.tv_sec);
     
-    write_size = snprintf(buff, sizeof(buff)-1, "[%02d.%02d.%02d/%02d:%02d:%02d PWR LOG] %.120s\n", ptm->tm_year%100, ptm->tm_mon, ptm->tm_mday, ptm->tm_hour, ptm->tm_min, ptm->tm_sec, log);
+    write_size = snprintf(buff, sizeof(buff)-1, "[%02d.%02d.%02d/%02d:%02d:%02d PWR LOG] %.120s\n", ptm->tm_year%100, ptm->tm_mon + 1, ptm->tm_mday, ptm->tm_hour, ptm->tm_min, ptm->tm_sec, log);
 
     mds_api_write_data_maxsize(LOG_PWR_PATH, (unsigned char *)buff, write_size, LOG_PWR_LOG_MAX_SIZE);
 }
