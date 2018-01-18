@@ -223,3 +223,22 @@ int mds_api_system_fork(const char *command, int deamon, char *argv[])
 
     return status;
 }
+
+int mds_api_popen(const char* cmd, char* buff, int buff_len)
+{
+    FILE *popen_fp;
+
+    popen_fp = popen(cmd, "r");
+
+    if (popen_fp == NULL) {
+        return DEFINES_MDS_API_NOK;
+    }
+
+    memset(buff, 0x00, buff_len);
+
+    fgets(buff, buff_len-1, popen_fp) ;
+
+    pclose(popen_fp);
+
+    return DEFINES_MDS_API_OK;
+}

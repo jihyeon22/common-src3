@@ -28,7 +28,7 @@ HEADERS = include/mdsapi/
 
 
 LIB_SRCS  = src/crc.c src/debug.c src/file.c src/gpio.c src/nettools.c src/power.c 
-LIB_SRCS  += src/proc.c src/process.c src/stackdump.c src/string.c src/time.c
+LIB_SRCS  += src/proc.c src/process.c src/stackdump.c src/string.c src/time.c src/time_sync.c
 LIB_SRCS  += src/uart.c src/validation.c 
 LIB_SRCS  += src/udp_ipc_server.c src/udp_ipc_clnt.c 
 LIB_SRCS  += src/gps_util.c

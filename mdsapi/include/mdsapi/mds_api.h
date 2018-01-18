@@ -95,6 +95,7 @@ int mds_api_led_blink(const char* led_name, const char* color_name, const int de
 int mds_api_proc_find(const char* name);    // default max count : 4
 int mds_api_proc_find_cnt(int max_cnt, const char* name);
 int mds_api_system_fork(const char *command, int deamon, char *argv[]);
+int mds_api_popen(const char* cmd, char* buff, int buff_len);
 
 // --------------------------------------
 // statck dump 
@@ -151,11 +152,16 @@ mdsapiRet_t mds_api_gps_util_get_gps_ant();
 
 
 // ----------------------------------------
-// adc
+// time
 // ----------------------------------------
 #include <time.h>
+#define KOR_TIME_ZONE_OFFSET 9
+#define CHK_TZ_LOCAL_FILE   "/etc/localtime.dat"
+
 time_t mds_api_get_kerneltime();
 time_t get_system_time_utc_sec(int timezone_adj_hour);
+int mds_api_set_network_time(int tz_hour);
+
 
 // ----------------------------------------
 // adc
