@@ -29,7 +29,8 @@ void main()
 
     printf("main -1 gpio_evt[0].gpio_num [%d]\r\n", gpio_evt[0].gpio_num);
 
-    start_gpio_evt(gpio_evt, gpio_evt_proc);
+    mds_api_gpio_evt_start(gpio_evt, gpio_evt_proc);
+    
     printf("main -2\r\n");
 
     while(1)

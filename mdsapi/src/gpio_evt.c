@@ -219,7 +219,7 @@ static void _gpio_procfs_read_thread(void)
 
 
 
-int start_gpio_evt(GPIP_EVT_INFO_T evt_ret[], int (*gpio_evt_proc)(GPIP_EVT_INFO_T* evt_res))
+int mds_api_gpio_evt_start(GPIP_EVT_INFO_T evt_ret[], int (*gpio_evt_proc)(GPIP_EVT_INFO_T* evt_res))
 {
     int i = 0;
     

@@ -1,5 +1,5 @@
-#ifndef __UTIL_LIST_H__
-#define __UTIL_LIST_H__
+#ifndef __UTIL_MDS_API_LIST_H__
+#define __UTIL_MDS_API_LIST_H__
 
 #include <pthread.h>
 
