@@ -37,6 +37,8 @@ LIB_SRCS  += src/led.c
 LIB_SRCS  += src/adc.c 
 LIB_SRCS  += src/aes.c 
 LIB_SRCS  += src/base64.c 
+LIB_SRCS  += src/mds_list.c 
+LIB_SRCS  += src/gpio_evt.c 
 
 LIB_OBJS = $(LIB_SRCS:.c=.o)
 

@@ -76,10 +76,35 @@ enum gpioDirection
     eGpioInput = 0,
     eGpioOutput
 };
+typedef enum gpioEdge gpioEdge_t;
+enum gpioEdge
+{
+    eGpioEdgeNone = 0, //none
+    eGpioEdgeRising,  //rising
+    eGpioEdgeFalling, //falling
+    eGpioEdgeBoth, //both
+};
 int mds_api_gpio_set_value(const int gpio, const int value);
 int mds_api_gpio_get_value(const int gpio);
 int mds_api_gpio_set_direction(const int gpio, gpioDirection_t direction);
+int mds_api_gpio_set_edge(const int gpio, gpioEdge_t edge);
+
 int export_chk_gpio_num(const int gpio);
+
+// --------------------------------------
+// gpio evt
+// --------------------------------------
+typedef struct
+{
+	int gpio_num;
+    int gpio_val;
+	gpioEdge_t evt_type;
+}GPIP_EVT_INFO_T;
+
+#define GPIO_EVT_LEVEL_HIGH     0
+#define GPIO_EVT_LEVEL_LOW      1
+
+int start_gpio_evt(GPIP_EVT_INFO_T evt_ret[], int (*gpio_evt_proc)(GPIP_EVT_INFO_T* evt_res));
 
 // --------------------------------------
 // led

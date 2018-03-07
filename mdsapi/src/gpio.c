@@ -156,3 +156,60 @@ int mds_api_gpio_set_direction(const int gpio, gpioDirection_t direction)
 	return 0;
 }
 
+
+int mds_api_gpio_set_edge(const int gpio, gpioEdge_t edge)
+{
+	int fd = 0;
+	char buf[32] = {0};
+
+	/* check valied gpio number */
+    /*
+	if(!_valid_gpio(gpio)) {
+		printf("gpio[%d] is not valied\n", gpio);
+		return -1;
+	}*/
+
+	if ( export_chk_gpio_num(gpio) == -1 )
+		return -1;
+
+	sprintf(buf, GPIO_EDGE, gpio);
+
+	fd = open(buf, O_RDWR);
+	if(fd < 0) {
+		printf("gpio sysfs open failed\n");
+		return -1;
+	}
+
+    switch(edge)
+    {
+        case eGpioEdgeNone:
+        {
+            write(fd, "none", sizeof("none"));
+            break;
+        }
+        case eGpioEdgeRising:
+        {
+            write(fd, "rising", sizeof("rising"));
+            break;
+        }
+        case eGpioEdgeFalling:
+        {
+            write(fd, "falling", sizeof("falling"));
+            break;
+        }
+        case eGpioEdgeBoth:
+        {
+            write(fd, "both", sizeof("both"));
+            break;
+        }
+        default:
+            close(fd);
+            return -1;
+            break;
+    }
+
+	close(fd);
+
+	return 0;
+}
+

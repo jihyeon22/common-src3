@@ -49,6 +49,7 @@
 #define GPIO_EXPORT                     CONCAT_STR(GPIO_ROOT_DIR, "/export")
 #define GPIO_VALUE						CONCAT_STR(GPIO_ROOT_DIR, "/gpio%d/value")
 #define GPIO_DIRECTION					CONCAT_STR(GPIO_ROOT_DIR, "/gpio%d/direction")
+#define GPIO_EDGE						CONCAT_STR(GPIO_ROOT_DIR, "/gpio%d/edge")
 
 #define GPS_ANT_CHK_GPIO_NUMBER         7
 #define GPS_ANT_CHK_CONN_VAL            (1)
