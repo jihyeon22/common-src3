@@ -101,8 +101,8 @@ typedef struct
 	gpioEdge_t evt_type;
 }GPIP_EVT_INFO_T;
 
-#define GPIO_EVT_LEVEL_HIGH     0
-#define GPIO_EVT_LEVEL_LOW      1
+#define GPIO_EVT_LEVEL_HIGH     1	// TL500 EXT GPIO high
+#define GPIO_EVT_LEVEL_LOW      0	// TL500 EXT GPIO high
 
 int mds_api_gpio_evt_start(GPIP_EVT_INFO_T evt_ret[], int (*gpio_evt_proc)(GPIP_EVT_INFO_T* evt_res));
 
