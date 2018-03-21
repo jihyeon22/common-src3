@@ -59,6 +59,7 @@ int mds_api_itoa_11(char *buf, int out_str_len, const char *format, int value);
 int mds_api_strlen_without_cr(const char *s);
 int mds_api_remove_cr(const char *s, char* target, int target_len);
 int mds_api_remove_char(const char *s, char* target, int target_len, char targ_char);
+int mds_api_remove_etc_char(const char *s, char* target, int target_len);
 int mds_api_read_line ( const char *cmd, const int cmd_len, char* buff, int buff_len);
 int mds_api_str_replace ( const char *string, const char *substr, const char *replacement , char* buff, int buff_len);
 int mds_api_count_char(const char* str, int str_len, const char c);

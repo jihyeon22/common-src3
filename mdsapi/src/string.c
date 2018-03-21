@@ -177,6 +177,35 @@ int mds_api_remove_char(const char *s, char* target, int target_len, char targ_c
 	return cnt;
 }
 
+int mds_api_remove_etc_char(const char *s, char* target, int target_len)
+{
+	int cnt = 0;
+
+    if ( s == NULL ) 
+        return -1;
+
+    if ( target == NULL )
+        return -1;
+        
+	while (*s)
+	{
+		//printf("strlen [%c]\r\n" ,*s);
+		if ( ( *s >= 33 ) && ( *s <= 125 ) )
+		{
+            target[cnt] = *s;
+            //printf("target[%d] => [0x%x][%c]\r\n", cnt, target[cnt], target[cnt]);
+			cnt++;
+			
+			if (cnt > target_len)
+				return -1;
+		}
+		s++;
+	}
+	//printf("strlen count [%d]\r\n" ,cnt);
+	return cnt;
+}
+
+
 
 int mds_api_read_line ( const char *cmd, const int cmd_len, char* buff, int buff_len)
 {
